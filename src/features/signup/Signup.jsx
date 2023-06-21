@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { BsFacebook, BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import CenteredModal from "../../components/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../components/loading/loadingSlice";
 
 const SignUp = () => {
   const data = {
@@ -11,32 +13,131 @@ const SignUp = () => {
     email: "",
     mobile: "",
     password: "",
+    usertype: "user",
   };
+  const signupdetail = useSelector((state) => state.Signup);
+  const [modalShow, setModalShow] = React.useState(false);
+  const [modalData, setModalData] = useState();
+  const [Modalheading, setModalheading] = useState("");
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [signUpData, setSignUpData] = useState(data);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = await axios.post("http://localhost:8000/user/register",signUpData)
-    if(data.data==="exists"){
-      toast.error("You are already register with us ")
-      setTimeout(() => {
-        navigate("/login")
-      }, 2000);
-    }else if(data.data==="created"){
-      toast.success("You are Sucessfully register with us ");
-      setTimeout(() => {
-        navigate("/login")
-      }, 1000);
-    } else{
-      toast.error("error occured")
+
+  const handleSignup = async () => {
+    dispatch(setLoading(true));
+    try {
+      const data = await axios.post(
+        "http://localhost:8000/user/register",
+        signUpData
+      );
+      if (data.data === "exists") {
+        toast.error("You are already register with us ");
+        dispatch(setLoading(false));
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } else if (data.data === "created") {
+        if (signUpData.usertype === "user") {
+          toast.success("You are Sucessfully register with us ");
+          dispatch(setLoading(false));
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+        } else {
+          handleUserTypeData();
+          dispatch(setLoading(false));
+        }
+      } else {
+        toast.error(data.data);
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
   };
+
+  const handleUserTypeData = async () => {
+    const email = { email: signUpData.email };
+    const doctorval = { ...signupdetail.doctorDetail, ...email };
+    const patientval = { ...signupdetail.patientDetail, ...email };
+    switch (signUpData.usertype) {
+      case "doctor-pending":
+        if (signupdetail.doctorDetail !== {}) {
+          try {
+            await axios.post(
+              "http://localhost:8000/doctor/registerdoctor",
+              doctorval
+            );
+            toast.success("You are sucessfully registered as doctor");
+            setTimeout(() => {
+              navigate("/login");
+            }, 1000);
+          } catch (error) {
+            toast.error(error.message);
+          }
+        }
+        break;
+      case "patient-pending":
+        if (signupdetail.patientDetail !== {}) {
+          try {
+            await axios.post(
+              "http://localhost:8000/patient/registerpatient",
+              patientval
+            );
+            toast.success("You are sucessfully registered as Patient");
+            setTimeout(() => {
+              navigate("/login");
+            }, 1000);
+          } catch (error) {
+            toast.error(error.message);
+          }
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSignup();
+    // handleUserTypeData();
+  };
+  console.log();
+  const handleUserType = (e) => {
+    e.preventDefault();
+    const option = e.target.value;
+    switch (option) {
+      case "doctor":
+        setSignUpData({ ...signUpData, usertype: "doctor-pending" });
+        setModalShow(true);
+        setModalheading("Fill this form to continue as doctor");
+        setModalData("doctor-form");
+        break;
+      case "patient":
+        setSignUpData({ ...signUpData, usertype: "patient-pending" });
+        setModalShow(true);
+        setModalheading("Fill this form to continue as Patient");
+        setModalData("patient-form");
+        break;
+      default:
+        setSignUpData({ ...signUpData, usertype: "user" });
+        break;
+    }
+  };
+
   return (
     <section className="bg-half-150 d-table w-100 bg-light py-5">
+      <CenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        data={modalData}
+        heading={Modalheading}
+      />
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-5 col-md-8">
-            <img 
+            <img
               src="../assets/images/logo-dark.png"
               height="22"
               className="mx-auto d-block"
@@ -106,7 +207,7 @@ const SignUp = () => {
                               email: e.target.value,
                             });
                           }}
-                          value={signUpData.email}
+                          value={signUpData?.email}
                           required
                         />
                       </div>
@@ -154,6 +255,24 @@ const SignUp = () => {
                     </div>
                     <div className="col-md-12">
                       <div className="mb-3">
+                        <div className="">
+                          <label className="form-label">
+                            Tell about yourself
+                          </label>
+                          <select
+                            className="form-select"
+                            aria-label="select-user-type"
+                            onChange={(e) => handleUserType(e)}
+                          >
+                            <option value="user"> General</option>
+                            <option value="patient"> Patient</option>
+                            <option value="doctor"> Doctor</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-12">
+                      <div className="mb-3">
                         <div className="form-check">
                           <input
                             className="form-check-input align-middle"
@@ -175,27 +294,7 @@ const SignUp = () => {
                     </div>
                     <div className="col-md-12">
                       <div className="d-grid">
-                        <button className="btn btn-primary">Register</button>
-                      </div>
-                    </div>
-
-                    <div className="col-lg-12 mt-3 text-center">
-                      <h6 className="text-muted">Or</h6>
-                    </div>
-
-                    <div className="col-6 mt-3">
-                      <div className="d-grid">
-                        <button className="btn bg-soft-primary">
-                          <BsFacebook/> Facebook
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="col-6 mt-3">
-                      <div className="d-grid">
-                        <button className="btn bg-soft-primary">
-                          <BsGoogle/> Google
-                        </button>
+                        <button className="btn btn-primary">SignUp</button>
                       </div>
                     </div>
 

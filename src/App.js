@@ -1,12 +1,12 @@
 import { Route,Routes, useLocation } from "react-router-dom";
 import { Home,Doctor,Shop,Cart,Profile } from "./Pages";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./features/Header";
+import Footer from "./features/Footer";
 import Contact from "./Pages/Contact";
 import PatientPage from "./Pages/Pateint";
-import MiniFooter from "./components/MiniFooter";
-import SignUp from "./components/Signup";
-import Login from "./components/Login";
+import MiniFooter from "./features/MiniFooter";
+import SignUp from "./features/signup/Signup";
+import Login from "./features/Login";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,8 @@ import { useEffect } from "react";
 import { fetchUser } from "./Redux-toolkit/Slices/UserSlice";
 import ProductDetail from "./Pages/ProductDetail";
 import { fetchProduct } from "./Redux-toolkit/Slices/ShopSlice";
+import Loader from "./components/loading/Loading";
+import { setLoading } from "./components/loading/loadingSlice";
 
 
 function App() {
@@ -21,16 +23,20 @@ function App() {
   const dispatch = useDispatch();
   const patient  = pathname.includes("patient")
   const doctor  = pathname.includes("doctor")
+  const loading = useSelector((state) => state.Loader);
   useEffect(()=>{
     dispatch(fetchUser())
     dispatch(fetchProduct())
-  },[])
+    dispatch(setLoading(false))
+  },[dispatch])
   const data = useSelector((state) => state.User.data);
   return (
     <>
     <ToastContainer/>
+    {loading && <Loader/>}
     <Header user={data}/>
-    <Routes>
+    {!loading&&(<>
+      <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/signup" element={<SignUp/>} />
       <Route path="/login" element={<Login/>} />
@@ -43,6 +49,7 @@ function App() {
       <Route path="/shop/:id" element={<ProductDetail/>} />   
     </Routes>
     {(patient || doctor) ?(<><MiniFooter/></>):(<><Footer/></>)}
+    </>)}
     </>
   );
 }

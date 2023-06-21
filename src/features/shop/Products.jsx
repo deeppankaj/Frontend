@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../miniComponnts/ProductCard";
+import ProductCard from "../../components/ProductCard";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 

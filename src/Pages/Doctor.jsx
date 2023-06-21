@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../components/doctor-dash/Sidebar";
+import Sidebar from "../features/doctor-dash/Sidebar";
 import { Route, Routes } from "react-router-dom";
 import {
   Appointment,
@@ -12,18 +12,23 @@ import {
   PatientReview,
   Patients,
   Shedule,
-} from "../components/doctor-dash";
+} from "../features/doctor-dash";
+import { useSelector } from "react-redux";
 
 const Doctor = () => {
+  const user = useSelector(state=>state.User?.data)
+  const usertype = useSelector(state=>state.User?.data?.usertype)
+
+  console.log();
   return (
     <>
       <section className="py-3 ">
-        <div className="container-fluid">
+        {usertype==="doctor"?<div className="container-fluid">
           <div className="row">
             <Sidebar />
             <Routes className="hi">
               <Route path="*" element={<Dashboard />} />
-              <Route path="appointment" element={<Appointment />} />
+              <Route path="appointment" element={<Appointment user={user}/>} />
               <Route path="schedule" element={<Shedule />} />
               <Route path="invoices" element={<Invoices />} />
               <Route path="message" element={<Messages />} />
@@ -34,7 +39,9 @@ const Doctor = () => {
               <Route path="chat" element={<Chat />} />
             </Routes>
           </div>
-        </div>
+        </div>:(<div>
+              <h4 className="text-center m-5 p-5"> Please register as doctor first to see this page</h4>
+            </div>)}
       </section>
     </>
   );

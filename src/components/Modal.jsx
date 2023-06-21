@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { RxCheckCircled, RxCrossCircled } from "react-icons/rx";
-import AppointmentForm from "../forms/AppointmentForm";
+import AppointmentForm from "./forms/AppointmentForm";
+import PatientForm from "./forms/PatientForm";
+import DoctorForm from "./forms/DoctorForm";
 
 function CenteredModal(props) {
   const [size, setSize] = useState("md");
   useEffect(() => {
-    if(props.data==="form"){
-      setSize("lg")
+    if(props?.data?.includes("form")){
+      setSize("lg") 
     }
   }, [props.data])
   
@@ -39,7 +41,7 @@ function CenteredModal(props) {
                   height="40px"
                   alt=""
                 />
-                <h5 className="mb-0 ms-3">{props ?.data?.name}</h5>
+                <h5 className="mb-0 ms-3">{props?.data?.name}</h5>
               </div>
               <ul className="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
                 <li>
@@ -136,7 +138,13 @@ function CenteredModal(props) {
           </>
         )}
         {props.data === "form"&&(<>
-          <AppointmentForm/>
+          <AppointmentForm hide={props.onHide} />
+        </>)}
+        {props.data === "doctor-form"&&(<>
+          <DoctorForm hide={props.onHide} />
+        </>)}
+        {props.data === "patient-form"&&(<>
+          <PatientForm hide={props.onHide} />
         </>)}
       </Modal.Body>
     </Modal>

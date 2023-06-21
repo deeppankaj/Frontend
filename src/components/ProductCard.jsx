@@ -6,7 +6,7 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import ReactStars from "react-stars";
 import { useDispatch, useSelector } from "react-redux";
-import { addTocart } from "../../Redux-toolkit/Slices/CartSlice";
+import { addTocart } from "../Redux-toolkit/Slices/CartSlice";
 import { toast } from "react-toastify";
 
 const ProductCard = ({ product, slider }) => {
@@ -22,7 +22,7 @@ const ProductCard = ({ product, slider }) => {
     qty: 1,
   };
   const handleAddtocart = () => {
-    if (user.email) {
+    if (user?.email) {
       toast.success("Product is added to cart !");
 
       dispatch(addTocart(productVal));

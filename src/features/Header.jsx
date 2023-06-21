@@ -92,15 +92,15 @@ const Header = ({ user }) => {
             >
               <BiCart />
             </Link>
-            {!user.email && <Link to={"/login"} style={{width:"60px"}} className="btn bg-soft-primary flex rounded-md">Login</Link>}
-            {user.email && (
+            {!user?.email && <Link to={"/login"} style={{width:"60px"}} className="btn bg-soft-primary flex rounded-md">Login</Link>}
+            {user?.email && (
               <div
                 className="nav-btn nav-icon overflow-hidden rounded-circle flex"
                 style={{ width: "35px", height: "35px" }}
                 onClick={() => usertoggle()}
               >
-                {!user.image && <BiUser />}
-                {user.image && <img alt="user" src={user.image} width="100%" />}
+                {!user?.image && <BiUser />}
+                {user?.image && <img alt="user" src={user?.image} width="100%" />}
               </div>
             )}
             <div
@@ -117,7 +117,7 @@ const Header = ({ user }) => {
                 </div>
                 <div className="flex">
                   <img
-                    src={user.image ? user.image : userimg}
+                    src={user?.image ? user?.image : userimg}
                     alt=""
                     className="rounded-circle"
                     width="70px"
@@ -126,7 +126,7 @@ const Header = ({ user }) => {
                 </div>
                 <div className="col-12 d-flex justify-content-center align-items-center gap-2">
                   <p className="p-0 m-0">
-                    {user.firstname} {user.lastname}
+                    {user?.firstname} {user?.lastname}
                   </p>
                   <BsPencilSquare />
                 </div>

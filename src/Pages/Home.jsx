@@ -1,9 +1,9 @@
 import React from 'react'
-import FindDoctorSection from '../components/Home/FindDoctorSection'
-import Clientbar from '../components/Home/Clientbar'
-import Explore from '../components/Home/Explore'
-import Introbanner from '../components/Home/Introbanner'
-import DoctorInfo from '../components/Home/DoctorInfo'
+import FindDoctorSection from '../features/Home/FindDoctorSection'
+import Clientbar from '../features/Home/Clientbar'
+import Explore from '../features/Home/Explore'
+import Introbanner from '../features/Home/Introbanner'
+import DoctorInfo from '../features/Home/DoctorInfo'
 const Home = () => {
   return (
     <>

@@ -1,63 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import CenteredModal from "../miniComponnts/Modal";
+import CenteredModal from "../../components/Modal";
 import { RxCheckCircled, RxCrossCircled } from "react-icons/rx";
 import { AiOutlineEye } from "react-icons/ai";
-import user from "../../assests/images/user.png";
+import userimg from "../../assests/images/user.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchDoctorAppointment, getdoctorappointment } from "../../Redux-toolkit/Slices/AppointmentSlice";
 
-const Appointment = () => {
-  const patients = [
-    {
-      name: "Pankaj Kumar",
-      age: 25,
-      img: "",
-      gender: "Male",
-      department: "Cardilogy",
-      date: "20th Dec 2020",
-      time: "11:00 AM",
-      doctorName: "Dr.Calvin Kumar",
-      docImage: "",
-      fees: "50$/Patient",
-    },
-    {
-      name: "Kishan Kumar",
-      age: 25,
-      img: "",
-      gender: "Male",
-      department: "Cardilogy",
-      date: "20th Dec 2020",
-      time: "11:00 AM",
-      doctorName: "Dr.Calvin Kumar",
-      docImage: "",
-      fees: "50$/Patient",
-    },
-    {
-      name: "Manoj Kumar",
-      age: 25,
-      img: "",
-      gender: "Male",
-      department: "Cardilogy",
-      date: "20th Dec 2020",
-      time: "11:00 AM",
-      doctorName: "Dr.Calvin Kumar",
-      docImage: "",
-      fees: "50$/Patient",
-    },
-    {
-      name: "Aman Kumar",
-      age: 25,
-      img: "",
-      gender: "Male",
-      department: "Cardilogy",
-      date: "20th Dec 2020",
-      time: "11:00 AM",
-      doctorName: "Dr.Calvin Kumar",
-      docImage: "",
-      fees: "50$/Patient",
-    },
-  ];
-  const [modalShow, setModalShow] = React.useState(true);
-  const [modalData, setModalData] = useState("form");
+const Appointment = ({user}) => {
+  
+  const dispatch = useDispatch();
+  const appointment = useSelector(getdoctorappointment);
+  const [appointments, setappointments] = useState([])
+  const setAppointment = ()=>{
+    setappointments(appointment)
+  }
+   useEffect(()=>{
+    setAppointment()
+    dispatch(fetchDoctorAppointment(user.email))
+  },[dispatch,appointment]);
+  
+  console.log(appointment);
+  
+
+  const [modalShow, setModalShow] = React.useState(false);
+  const [modalData, setModalData] = useState();
   const [Modalheading, setModalheading] = useState("");
 
   return (
@@ -140,46 +108,44 @@ const Appointment = () => {
                 </tr>
               </thead>
               <tbody>
-                {patients !== 0 ? (
-                  <>
-                    {patients.map((patient, i) => {
+                {appointments.length!==0 && (<>{appointments.map((patient, i) => {
                       return (
                         <tr key={i}>
-                          <th className="p-3">{i}</th>
+                          <th className="p-3">{i+1}</th>
                           <td className="p-3">
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={user}
+                                  src={userimg}
                                   className="avatar avatar-md-sm rounded-circle shadow"
                                   alt=""
                                   style={{ height: "40px", width: "40px" }}
                                 />
-                                <span className="ms-2">{patient.name}</span>
+                                <span className="ms-2 text-capitalize">{patient.name}</span>
                               </div>
                             </Link>
                           </td>
-                          <td className="p-3">{patient.age}</td>
-                          <td className="p-3">{patient.gender}</td>
-                          <td className="p-3">{patient.department}</td>
-                          <td className="p-3">{patient.date}</td>
-                          <td className="p-3">{patient.time}</td>
+                          <td className="p-3">{patient?.age}</td>
+                          <td className="p-3">{patient?.gender}</td>
+                          <td className="p-3">{patient?.department}</td>
+                          <td className="p-3">{patient?.date}</td>
+                          <td className="p-3">{patient?.time}</td>
                           <td className="p-3">
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={user}
+                                  src={userimg}
                                   className="avatar avatar-md-sm rounded-circle border shadow"
                                   alt=""
                                   style={{ height: "40px", width: "40px" }}
                                 />
                                 <span className="ms-2">
-                                  {patient.doctorName}
+                                  {`${user?.firstname} ${user?.lastname} `}
                                 </span>
                               </div>
                             </Link>
                           </td>
-                          <td className="p-3">{patient.fees}</td>
+                          <td className="p-3">50$</td>
                           <td className="text-end p-3 gap-1">
                             <div className="flex gap-2">
                               <button
@@ -223,13 +189,10 @@ const Appointment = () => {
                           </td>
                         </tr>
                       );
-                    })}
-                  </>
-                ) : (
-                  <></>
-                )}
+                    })}</>)}
               </tbody>
             </table>
+                {appointments.length===0  && (<div className="col-12 h5 text-center p-5">No appointment found</div>)}
           </div>
         </div>
       </div>

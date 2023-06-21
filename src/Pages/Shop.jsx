@@ -1,6 +1,6 @@
 import React from 'react'
-import Shopslider from '../components/shop/Shopslider'
-import Products from '../components/shop/Products'
+import Shopslider from '../features/shop/Shopslider'
+import Products from '../features/shop/Products'
 
 const Shop = () => {
   return (

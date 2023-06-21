@@ -10,7 +10,7 @@ const SidebarPatient = () => {
     <div className="col-xl-3 col-lg-4 col-md-5 col-12 mb-4 position-lg-fixed mt-lg-5 ms-lg-n1 ">
       <div className="card border-0 p-4 rounded shadow overflow-hidden sticky-bar mt-1">
         <div className="d-md-flex text-center text-md-start align-items-center">
-          <Avatar src="../assets/images/client/09.jpg" size="md-md" roundedCircle border shadow alt="" />
+          <Avatar src="../assets/images/client/09.jpg" size="md-md" alt="" />
           <div className="ms-md-3 mt-3 mt-sm-0">
             <h5 className="d-block mb-1 mb-sm-0">Christopher Burrell</h5>
             <small className="text-muted">25 Years old</small>
@@ -45,19 +45,19 @@ const SidebarPatient = () => {
         <h6 className="mt-4 mb-0">Doctors:</h6>
         <ul className="list-unstyled mb-0 mt-4">
           <li className="list-inline-item">
-            <Link to="/"><Avatar src="../assets/images/doctors/01.jpg" size="md-sm" roundedCircle shadow alt="" /></Link>
+            <Link to="/"><Avatar src="../assets/images/doctors/01.jpg" size="md-sm" alt="" /></Link>
           </li>
           <li className="list-inline-item">
-            <Link to="/"><Avatar src="../assets/images/doctors/02.jpg" size="md-sm" roundedCircle shadow alt="" /></Link>
+            <Link to="/"><Avatar src="../assets/images/doctors/02.jpg" size="md-sm" alt="" /></Link>
           </li>
           <li className="list-inline-item">
-            <Link to="/"><Avatar src="../assets/images/doctors/03.jpg" size="md-sm" roundedCircle shadow alt="" /></Link>
+            <Link to="/"><Avatar src="../assets/images/doctors/03.jpg" size="md-sm" alt="" /></Link>
           </li>
           <li className="list-inline-item">
-            <Link to="/"><Avatar src="../assets/images/doctors/04.jpg" size="md-sm" roundedCircle shadow alt="" /></Link>
+            <Link to="/"><Avatar src="../assets/images/doctors/04.jpg" size="md-sm" alt="" /></Link>
           </li>
           <li className="list-inline-item">
-            <Link to="/"><Avatar src="../assets/images/doctors/05.jpg" size="md-sm" roundedCircle shadow alt="" /></Link>
+            <Link to="/"><Avatar src="../assets/images/doctors/05.jpg" size="md-sm" alt="" /></Link>
           </li>
         </ul>
 

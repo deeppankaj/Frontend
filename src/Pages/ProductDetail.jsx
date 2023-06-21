@@ -1,12 +1,12 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import ProductCard from "../components/miniComponnts/ProductCard";
+import { Link, useLocation } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
 import Carousel from "react-bootstrap/Carousel";
 import Carousel2 from "react-elastic-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { TbCurrencyRupee } from "react-icons/tb";
 import { useState } from "react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import axios from "axios";
 import ReactStars from "react-stars";
 import { addTocart } from "../Redux-toolkit/Slices/CartSlice";
@@ -32,9 +32,9 @@ const ProductDetail = () => {
     const data = await axios(`http://localhost:8000/shop/get?name=${productName}`)
     setProduct(data.data)
   }
-  useEffect(()=>{
-    getProduct()
-  },[])
+  getProduct()
+  // useEffect(()=>{
+  // },[productName])
 
   let productval = {
     _id:product?._id,
@@ -47,7 +47,7 @@ const ProductDetail = () => {
   const [cartObj, setCartObj] = useState(productval)
 
   const handleAddtocart = () => {
-    if (user.email) {
+    if (user?.email) {
       toast.success("Product is added to cart !");
 
       dispatch(addTocart(cartObj));
@@ -153,9 +153,9 @@ const ProductDetail = () => {
               </div>
 
               <div className="mt-4 pt-2 d-flex gap-2">
-                <a href="#" className="btn btn-primary">
+                <Link to={"/shop"} className="btn btn-primary">
                   Shop Now
-                </a>
+                </Link>
                 <button className=" btn bg-soft-primary" onClick={handleAddtocart}>
                   Add to Cart
                 </button>

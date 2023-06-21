@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const MiniFooter = () => {
   return (
-    <footer className="py-4">
+    <footer className="py-4 col-12 footer-postion" style={{height:"70px",left:"0",bottom:"0px"}}>
       <div className="container-fluid">
         <div className="row align-items-center">
           <div className="col-sm-6">

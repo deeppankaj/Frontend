@@ -1,16 +1,17 @@
-import React from "react";
-import { BsDropletHalf ,BsHeart, BsHeartFill } from "react-icons/bs";
+import React, { useState } from "react";
+import { BsDropletHalf, BsHeart, BsHeartFill } from "react-icons/bs";
 // import {  BsEmojiSmile, BsMessenger, BsPaperclip } from "react-icons/bs";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { TbBrandTelegram, TbClipboardText } from "react-icons/tb";
-import { Circle  } from "rc-progress";
+import { Circle } from "rc-progress";
 import ReactApexChart from "react-apexcharts";
 import { RiTimerFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import SimpleBarReact from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-import { AiOutlineArrowRight } from 'react-icons/ai';
+import { AiOutlineArrowRight } from "react-icons/ai";
+import CenteredModal from "../../components/Modal";
 
 const Dashboard = () => {
   const chart1 = {
@@ -133,32 +134,42 @@ const Dashboard = () => {
   ];
   const Process = [
     {
-      name:"Treatment report",
-      percent:"86%"
+      name: "Treatment report",
+      percent: "86%",
     },
     {
-      name:"Treatment report",
-      percent:"86%"
+      name: "Treatment report",
+      percent: "86%",
     },
     {
-      name:"Treatment report",
-      percent:"86%"
+      name: "Treatment report",
+      percent: "86%",
     },
     {
-      name:"Treatment report",
-      percent:"86%"
+      name: "Treatment report",
+      percent: "86%",
     },
     {
-      name:"Treatment report",
-      percent:"86%"
+      name: "Treatment report",
+      percent: "86%",
     },
     {
-      name:"Treatment report",
-      percent:"86%"
+      name: "Treatment report",
+      percent: "86%",
     },
-  ]
+  ];
+  const [modalShow, setModalShow] = React.useState(false);
+  const [modalData, setModalData] = useState();
+  const [Modalheading, setModalheading] = useState("");
+
   return (
     <div className="col-xl-9 col-lg-8 col-md-7 mt-4 pt-2 mt-sm-0 pt-sm-0">
+      <CenteredModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        data={modalData}
+        heading={Modalheading}
+      />
       <h5 className="mb-0">Dashboard</h5>
       <div className="row">
         <div className="col-xl-3 col-lg-6 col-12">
@@ -290,17 +301,18 @@ const Dashboard = () => {
                 </button>
 
                 <div className="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3">
-                  <button className="dropdown-item text-dark">
+                  <button
+                    className="dropdown-item text-dark"
+                    onClick={() => {
+                      setModalShow(true);
+                      setModalheading("Book an Appointment");
+                      setModalData("form");
+                    }}
+                  >
                     <span className="mb-0 d-inline-block me-1">
                       <i className="uil uil-book-medical align-middle h6"></i>
                     </span>
                     Add New
-                  </button>
-                  <button className="dropdown-item text-dark">
-                    <span className="mb-0 d-inline-block me-1">
-                      <i className="uil uil-trash align-middle h6"></i>
-                    </span>
-                    Delete
                   </button>
                 </div>
               </div>
@@ -320,7 +332,7 @@ const Dashboard = () => {
             </div>
             <SimpleBarReact style={{ maxHeight: 420 }}>
               {docShedule.map((x, i) => (
-                <div className="px-4 pb-2">
+                <div key={i} className="px-4 pb-2">
                   <div className="d-flex justify-content-between align-items-center rounded py-1 px-3 shadow-sm">
                     <BsHeart fontSize={25} color="red" />
                     <div className="flex-1 overflow-hidden ms-2">
@@ -382,7 +394,7 @@ const Dashboard = () => {
                       data-bs-toggle="modal"
                       data-bs-target="#view-invoice"
                     >
-                      <TbClipboardText/>
+                      <TbClipboardText />
                     </button>
                   </div>
                 </div>
@@ -390,201 +402,34 @@ const Dashboard = () => {
             </SimpleBarReact>
           </div>
         </div>
-        {/* <div className="col-xl-4 col-lg-6 mt-4 pt-2">
-          <div className="card chat chat-person border-0 shadow rounded">
-            <div className="d-flex justify-content-between border-bottom p-4">
-              <div className="d-flex">
-                <img
-                  src="../assets/images/doctors/02.jpg"
-                  className="avatar avatar-md-sm rounded-circle border shadow"
-                  alt=""
-                />
-                <div className="flex-1 overflow-hidden ms-3">
-                  <p className="text-dark mb-0 h6 d-block text-truncate">
-                    Cristino Murphy
-                  </p>
-                  <small className="text-muted">
-                    <i className="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>{" "}
-                    Online
-                  </small>
-                </div>
-              </div>
-
-              <ul className="list-unstyled mb-0">
-                <li className="dropdown dropdown-primary list-inline-item">
-                  <button
-                    type="button"
-                    className="btn btn-icon btn-pills btn-soft-primary dropdown-toggle p-0"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <i className="uil uil-ellipsis-h"></i>
-                  </button>
-                  <div className="dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3 row gap-1">
-                    <Link className="dropdown-item text-dark " to="/">
-                      <span className="mb-0 d-inline-block me-1">
-                        <i className="uil uil-user align-middle h6"></i>
-                      </span>{" "}
-                      Profile
-                    </Link>
-                    <Link className="dropdown-item text-dark m-1" to="/">
-                      <span className="mb-0 d-inline-block me-1">
-                        <i className="uil uil-setting align-middle h6"></i>
-                      </span>{" "}
-                      Profile Settings
-                    </Link>
-                    <Link className="dropdown-item text-dark" to="/">
-                      <span className="mb-0 d-inline-block me-1">
-                        <i className="uil uil-trash align-middle h6"></i>
-                      </span>{" "}
-                      Delete
-                    </Link>
-                  </div>
-                </li>
-              </ul>
-            </div>
-
-            <ul
-              className="p-4 list-unstyled mb-0 chat"
-              data-simplebar="init"
-              style={{
-                background:
-                  "url('../assets/images/bg/bg-chat.png') center center",
-                maxHeight: "300px",
-              }}
-            >
-              <div className="simplebar-wrapper" style={{ margin: "-24px" }}>
-                <div className="simplebar-height-auto-observer-wrapper">
-                  <div className="simplebar-height-auto-observer"></div>
-                </div>
-                <div className="simplebar-mask">
-                  <div
-                    className="simplebar-offset"
-                    style={{ right: "0px", bottom: "0px" }}
-                  >
-                    <div
-                      className="simplebar-content-wrapper"
-                      tabIndex="0"
-                      role="region"
-                      aria-label="scrollable content"
-                      style={{ height: "auto", overflow: "scroll" }}
-                    >
-                      <div
-                        className="simplebar-content"
-                        style={{ padding: "24px" }}
-                      >
-                        <li>
-                          <div className="d-inline-block">
-                            <div className="d-flex chat-type mb-3">
-                              <div className="position-relative">
-                                <img
-                                  src="../assets/images/doctors/02.jpg"
-                                  className="avatar avatar-md-sm rounded-circle border shadow"
-                                  alt=""
-                                />
-                                <i className="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                              </div>
-
-                              <div
-                                className="flex-1 chat-msg"
-                                style={{ maxWidth: "500px" }}
-                              >
-                                <p className="text-muted small shadow px-3 py-2 bg-light rounded mb-1">
-                                  Thank you 😊
-                                </p>
-                                <small className="text-muted msg-time">
-                                  <i className="uil uil-clock-nine me-1"></i>20
-                                  min ago
-                                </small>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-
-                        <li className="chat-right">
-                          <div className="d-inline-block">
-                            <div className="d-flex chat-type mb-3">
-                              <div className="position-relative chat-user-image">
-                                <img
-                                  src="../assets/images/client/09.jpg"
-                                  className="avatar avatar-md-sm rounded-circle border shadow"
-                                  alt=""
-                                />
-                                <i className="mdi mdi-checkbox-blank-circle text-success on-off align-text-bottom"></i>
-                              </div>
-
-                              <div
-                                className="flex-1 chat-msg"
-                                style={{ maxWidth: "500px" }}
-                              >
-                                <p className="text-muted small shadow px-3 py-2 bg-light rounded mb-1">
-                                  Welcome
-                                </p>
-                                <small className="text-muted msg-time">
-                                  <i className="uil uil-clock-nine me-1"></i>18
-                                  min ago
-                                </small>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                className="simplebar-placeholder"
-                style={{ width: "auto", height: "956px" }}
-              ></div>
-            </ul>
-
-            <div className="p-2 rounded-bottom shadow col-12">
-              <div className="row">
-                <div className="col-6">
-                  <input
-                    type="text"
-                    className="form-control border"
-                    placeholder="Enter Message..."
-                  />
-                </div>
-                <div className="col-6 row gap-2 ">
-                  <Link to="/" className="btn btn-icon bg-soft-primary">
-                    <BsMessenger/>
-                  </Link>
-                  <Link to="/" className="btn btn-icon bg-soft-primary">
-                    <BsEmojiSmile/>
-                  </Link>
-                  <Link to="/" className="btn btn-icon bg-soft-primary">
-                    <BsPaperclip/>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="col-xl-4 col-lg-6 mt-4 pt-2">
           <div className="card border-0 shadow rounded p-4">
             <h6 className="mb-0">Monthly Reports</h6>
 
             <div className="mt-4 pt-2 ">
-              
-              {Process && (<>
-                {Process.map((preoces,i)=>{
-                  return(<div className="progress-box mb-3">
-                  <h6 className="title text-muted fw-normal">Treatment report</h6>
-                  <div className="progress">
-                    <div
-                      className="progress-bar position-relative bg-primary"
-                      style={{ width: "84%" }}
-                    >
-                      <div className="progress-value d-block text-muted text-light">84%</div>
-                    </div>
-                  </div>
-                </div>)
-                })}
-              </>)}
+              {Process && (
+                <>
+                  {Process.map((preoces, i) => {
+                    return (
+                      <div key={i} className="progress-box mb-3">
+                        <h6 className="title text-muted fw-normal">
+                          Treatment report
+                        </h6>
+                        <div className="progress">
+                          <div
+                            className="progress-bar position-relative bg-primary"
+                            style={{ width: "84%" }}
+                          >
+                            <div className="progress-value d-block text-muted text-light">
+                              84%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -593,16 +438,15 @@ const Dashboard = () => {
           <div className="row">
             <div className="col-xl-12 col-md-6 mt-4">
               <div className="card features feature-primary text-center border-0 p-4 rounded shadow">
-              <div className=" badge icon flex rounded-circle mx-auto p-3">
-                  <TbBrandTelegram fontSize={35}/>
+                <div className=" badge icon flex rounded-circle mx-auto p-3">
+                  <TbBrandTelegram fontSize={35} />
                 </div>
                 <div className="card-body p-0 mt-3">
                   <Link to="#" className="title text-dark h5 d-block">
                     New Messages
                   </Link>
                   <Link to="#" className="link">
-                    Read more{" "}
-                   <AiOutlineArrowRight/>
+                    Read more <AiOutlineArrowRight />
                   </Link>
                 </div>
               </div>
@@ -611,15 +455,14 @@ const Dashboard = () => {
             <div className="col-xl-12 col-md-6 mt-4">
               <div className="card features feature-primary text-center border-0 p-4 rounded shadow">
                 <div className=" badge icon flex rounded-circle mx-auto p-3">
-                  <HiOutlineEnvelope fontSize={35}/>
+                  <HiOutlineEnvelope fontSize={35} />
                 </div>
                 <div className="card-body p-0 mt-3">
                   <Link to="#" className="title text-dark h5 d-block">
                     Latest Proposals
                   </Link>
                   <Link to="#" className="link">
-                    View more{" "}
-                   <AiOutlineArrowRight/>
+                    View more <AiOutlineArrowRight />
                   </Link>
                 </div>
               </div>
