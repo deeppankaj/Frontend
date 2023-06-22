@@ -83,7 +83,7 @@ const PatientForm = ({hide}) => {
                 type="text"
                 className="form-control"
                 onChange={(e)=>setFormdata({...formdata,condition:e.target.value})}
-                placeholder="Your Fees :"
+                placeholder="Enter your condition:"
               />
             </div>
           </div>

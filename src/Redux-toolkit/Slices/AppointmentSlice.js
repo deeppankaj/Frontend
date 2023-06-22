@@ -5,10 +5,34 @@ import axios from "axios";
 
 export const fetchDoctorAppointment = createAsyncThunk(
   "fetchDoctorAppointment",
+  async (emailval) => {
+    try {
+      let data
+      const email = {
+        doctorEmail:emailval
+      }
+      const response = await axios.post(`http://localhost:8000/getappointments`,email);
+      console.log(response.data);
+      if(typeof response!=="string"){
+        data = response.data.reverse()
+      }
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const accepteAppointed = createAsyncThunk(
+  "accepteAppointed",
   async (email) => {
     try {
+      let data
       const response = await axios.get(`http://localhost:8000/doctor/getappointment/${email}`);
-      return response.data;
+      if(typeof response!=="string"){
+        data = response.data.reverse()
+      }
+      return data;
     } catch (error) {
       throw error;
     }

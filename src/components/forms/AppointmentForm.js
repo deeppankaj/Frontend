@@ -58,10 +58,21 @@ const AppointmentForm = ({ hide }) => {
 
   //* Function for add appointment to doctor's appointment list
   const addAppointment = async (value) => {
+    const data = {
+      patientEmail: value.pateintemail,
+      doctorEmail: value.doctoremail,
+      PatientInfo: {
+        department: value.department,
+        condition: value.patientdiscription,
+      },
+      date: value.appointmentdate,
+      status: "pending",
+      time: value.appointmenttime,
+    };
     try {
       const response = await axios.post(
-        "http://localhost:8000/doctor/appointment",
-        value
+        "http://localhost:8000/addappointment",
+        data
       );
       toast.success(response.data);
       hide();
@@ -74,19 +85,21 @@ const AppointmentForm = ({ hide }) => {
     e.preventDefault();
     if (formdata.appointmenttime !== "") {
       const data = {
+        patientEmail: formdata.pateintemail,
+        doctorEmail: formdata.doctoremail,
         time: formdata.appointmenttime,
         date: formdata.appointmentdate,
       };
       try {
         const response = await axios.post(
-          `http://localhost:8000/doctor/checkappointment/${formdata.doctoremail}`,
+          `http://localhost:8000/checkappointment`,
           data
         );
-        if(response.data.available===true){
-          setAvailable(response.data.available)
+        if (response.data.available === true) {
+          setAvailable(response.data.available);
           toast.success("Appointment is available for booking");
-        }else{
-          toast.info("Appointment for selected date and time is not available")
+        } else {
+          toast.info("Appointment for selected date and time is not available");
         }
       } catch (error) {
         toast.error(error.message);
@@ -99,11 +112,11 @@ const AppointmentForm = ({ hide }) => {
   const [doctors, setDoctors] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(available){      
+    if (available) {
       addAppointment(formdata);
-      setAvailable(false)
-    }else{
-      toast.info("Please check doctor is available for selected time")
+      setAvailable(false);
+    } else {
+      toast.info("Please check doctor is available for selected time");
     }
   };
 

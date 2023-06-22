@@ -12,16 +12,30 @@ const Appointment = ({user}) => {
   
   const dispatch = useDispatch();
   const appointment = useSelector(getdoctorappointment);
-  const [appointments, setappointments] = useState([])
-  const setAppointment = ()=>{
-    setappointments(appointment)
-  }
-   useEffect(()=>{
-    setAppointment()
-    dispatch(fetchDoctorAppointment(user.email))
-  },[dispatch,appointment]);
   
-  console.log(appointment);
+  const [appointments, setappointments] = useState([])
+  
+   useEffect(()=>{
+     dispatch(fetchDoctorAppointment(user.email))   
+  },[dispatch]);
+
+  const convertTo24HourFormat = (time) => {
+    const [hour, minute, period] = time.split(' ');
+    let [hourNumeric] = hour.split(':');
+    hourNumeric = parseInt(hourNumeric);
+
+    if (period === 'PM' && hourNumeric !== 12) {
+      hourNumeric += 12;
+    }
+
+    return `${hourNumeric.toString().padStart(2, '0')}:${minute}`;
+  };
+
+  useEffect(() => {
+    setappointments(appointment);
+  }, [appointment])
+  
+  
   
 
   const [modalShow, setModalShow] = React.useState(false);
@@ -121,12 +135,12 @@ const Appointment = ({user}) => {
                                   alt=""
                                   style={{ height: "40px", width: "40px" }}
                                 />
-                                <span className="ms-2 text-capitalize">{patient.name}</span>
+                                <span className="ms-2 text-capitalize">{patient.patientName}</span>
                               </div>
                             </Link>
                           </td>
-                          <td className="p-3">{patient?.age}</td>
-                          <td className="p-3">{patient?.gender}</td>
+                          <td className="p-3">{patient?.patientAge}</td>
+                          <td className="p-3">{patient?.patientGender}</td>
                           <td className="p-3">{patient?.department}</td>
                           <td className="p-3">{patient?.date}</td>
                           <td className="p-3">{patient?.time}</td>

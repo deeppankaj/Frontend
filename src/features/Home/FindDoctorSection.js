@@ -8,7 +8,7 @@ const FindDoctorSection = () => {
         <div className="row mt-5 mt-sm-0 align-items-center">
           <div className="col-md-6">
             <div className="heading-title">
-              <h4 className="heading mb-3">Find Best Doctor</h4>
+              <h2 className="heading mb-3 h1 " style={{fontWeight:"900"}} >Find Best Doctor</h2>
               <p className="para-desc text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment or a simple consultation.</p>
             </div>
             <div className="search-form mt-4 mx-2">

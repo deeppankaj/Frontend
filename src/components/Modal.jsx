@@ -8,11 +8,13 @@ import DoctorForm from "./forms/DoctorForm";
 function CenteredModal(props) {
   const [size, setSize] = useState("md");
   useEffect(() => {
-    if(props?.data?.includes("form")){
-      setSize("lg") 
+    if (typeof props?.data === "string") {
+      if (props?.data?.includes("form")) {
+        setSize("lg");
+      }
     }
-  }, [props.data])
-  
+  }, [props.data]);
+
   return (
     <Modal
       {...props}
@@ -30,7 +32,7 @@ function CenteredModal(props) {
         </>
       )}
       <Modal.Body>
-        {props?.data?.name && (
+        {props?.data?.patientName && (
           <>
             <div className="p-3 pt-4">
               <div className="d-flex align-items-center">
@@ -41,7 +43,7 @@ function CenteredModal(props) {
                   height="40px"
                   alt=""
                 />
-                <h5 className="mb-0 ms-3">{props?.data?.name}</h5>
+                <h5 className="mb-0 ms-3">{props?.data?.patientName}</h5>
               </div>
               <ul className="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
                 <li>
@@ -49,17 +51,17 @@ function CenteredModal(props) {
                     <li className="d-flex">
                       <h6>Age:</h6>
                       <p className="text-muted ms-2">
-                        {props?.data?.age} year old
+                        {props?.data?.patioentAge} year old
                       </p>
                     </li>
                     <li className="d-flex">
                       <h6>Gender:</h6>
-                      <p className="text-muted ms-2">{props?.data?.gender}</p>
+                      <p className="text-muted ms-2">{props?.data?.patientGender}</p>
                     </li>
                     <li className="d-flex">
                       <h6 className="mb-0">Department:</h6>
                       <p className="text-muted ms-2 mb-0">
-                        {props?.data?.depatment}
+                        {props?.data?.department}
                       </p>
                     </li>
                   </ul>
@@ -74,15 +76,23 @@ function CenteredModal(props) {
                       <h6>Time:</h6>
                       <p className="text-muted ms-2">{props?.data?.time}</p>
                     </li>
-                    <li className="d-flex">
+                    {/* <li className="d-flex">
                       <h6 className="mb-0">Doctor:</h6>
                       <p className="text-muted ms-2 mb-0">
                         {props?.data?.doctorName}
                       </p>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
               </ul>
+              <div>
+              <ul className="list-unstyled mb-0 mt-2">
+                    <li className="d-flex align-items-center">
+                      <h6>Discription :</h6>
+                      <p className="text-muted ms-2 mb-1">{props?.data?.condition}</p>
+                    </li>
+              </ul>      
+              </div>
             </div>
           </>
         )}
@@ -118,8 +128,7 @@ function CenteredModal(props) {
                 style={{ height: "95px", width: "95px" }}
               >
                 <span className="mb-0">
-                <RxCrossCircled fontSize={40} />
-
+                  <RxCrossCircled fontSize={40} />
                 </span>
               </div>
               <div className="mt-4">
@@ -129,23 +138,27 @@ function CenteredModal(props) {
                   assistance, emergency treatment.
                 </p>
                 <div className="mt-4">
-                  <button className="btn bg-soft-danger">
-                    Cancel
-                  </button>
+                  <button className="btn bg-soft-danger">Cancel</button>
                 </div>
               </div>
             </div>
           </>
         )}
-        {props.data === "form"&&(<>
-          <AppointmentForm hide={props.onHide} />
-        </>)}
-        {props.data === "doctor-form"&&(<>
-          <DoctorForm hide={props.onHide} />
-        </>)}
-        {props.data === "patient-form"&&(<>
-          <PatientForm hide={props.onHide} />
-        </>)}
+        {props.data === "form" && (
+          <>
+            <AppointmentForm hide={props.onHide} />
+          </>
+        )}
+        {props.data === "doctor-form" && (
+          <>
+            <DoctorForm hide={props.onHide} />
+          </>
+        )}
+        {props.data === "patient-form" && (
+          <>
+            <PatientForm hide={props.onHide} />
+          </>
+        )}
       </Modal.Body>
     </Modal>
   );
