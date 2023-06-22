@@ -17,19 +17,7 @@ const Appointment = ({user}) => {
   
    useEffect(()=>{
      dispatch(fetchDoctorAppointment(user.email))   
-  },[dispatch]);
-
-  const convertTo24HourFormat = (time) => {
-    const [hour, minute, period] = time.split(' ');
-    let [hourNumeric] = hour.split(':');
-    hourNumeric = parseInt(hourNumeric);
-
-    if (period === 'PM' && hourNumeric !== 12) {
-      hourNumeric += 12;
-    }
-
-    return `${hourNumeric.toString().padStart(2, '0')}:${minute}`;
-  };
+  },[dispatch,user.email]);
 
   useEffect(() => {
     setappointments(appointment);

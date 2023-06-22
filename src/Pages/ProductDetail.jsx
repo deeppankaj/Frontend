@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
 import Carousel from "react-bootstrap/Carousel";
-import Carousel2 from "react-elastic-carousel";
+// import Carousel2 from "react-elastic-carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { TbCurrencyRupee } from "react-icons/tb";
 import { useState } from "react";
@@ -21,12 +20,12 @@ const ProductDetail = () => {
   const dispatch = useDispatch();
 
 
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
-    { width: 850, itemsToShow: 4 },
-    { width: 1150, itemsToShow: 4, itemsToScroll: 4 },
-  ];
+  // const breakPoints = [
+  //   { width: 1, itemsToShow: 1 },
+  //   { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+  //   { width: 850, itemsToShow: 4 },
+  //   { width: 1150, itemsToShow: 4, itemsToScroll: 4 },
+  // ];
   const [product, setProduct] = useState({});
   const getProduct = async()=>{
     const data = await axios(`http://localhost:8000/shop/get?name=${productName}`)
@@ -173,7 +172,7 @@ const ProductDetail = () => {
             <h5 className="mb-0">Related Products:</h5>
           </div>
         </div>
-        <Carousel2
+        {/* <Carousel2
           enableAutoPlay={true}
           showArrows={false}
           breakPoints={breakPoints}
@@ -192,7 +191,7 @@ const ProductDetail = () => {
               
             );
           })}
-        </Carousel2>
+        </Carousel2> */}
       </div>
     </div>
   );
