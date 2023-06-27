@@ -54,7 +54,7 @@ const DoctorInfo = () => {
               <span className="badge rounded-pill bg-soft-primary">
                 Find Doctors
               </span>
-              <h4 className="title mt-3 mb-4">Find Your Specialists</h4>
+              <h1 className="title mt-3 mb-4 h2">Find Your Specialists</h1>
               <p className="text-muted mx-auto col-lg-8 col-10 mb-0">
                 Great doctor if you need your family member to get effective
                 immediate assistance, emergency treatment, or a simple

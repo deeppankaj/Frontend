@@ -4,8 +4,8 @@ import axios from "axios";
 import { baseUrl } from "../../configuration";
 
 
-export const fetchDoctorAppointment = createAsyncThunk(
-  "fetchDoctorAppointment",
+export const getAdmindata = createAsyncThunk(
+  "getAdmindata",
   async (emailval) => {
     try {
       let data
@@ -24,39 +24,10 @@ export const fetchDoctorAppointment = createAsyncThunk(
   }
 );
 
-export const accepteAppointed = createAsyncThunk(
-  "accepteAppointed",
-  async (email) => {
-    try {
-      let data
-      const response = await axios.get(`${baseUrl}/doctor/getappointment/${email}`);
-      if(typeof response!=="string"){
-        data = response.data.reverse()
-      }
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
 
-
-export const fetchPatientAppointment = createAsyncThunk(
-    "fetchPatientAppointment",
-    async (email) => {
-      try {
-        const response = await axios.get(`${baseUrl}/patient/getappointment/${email}`);
-        return response.data;
-      } catch (error) {
-        throw error;
-      }
-    }
-  );
 
 const initialState = {
-  doctorAppointments: [],
-  patientAppointments: [],
-  timing:[],
+  data: [],
   loading: false,
   error: null,
 };

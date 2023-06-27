@@ -201,7 +201,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="col-xl-9 col-lg-8 col-md-7 mt-4 mt-sm-0">
+      <div className="col-xl-9 col-lg-8 col-md-7 mt-4 mt-sm-4 mt-md-0 ">
         <h5 className="mb-0">Dashboard</h5>
         <div className="row">
           <div className="col-xl-3 col-lg-6 mt-4">

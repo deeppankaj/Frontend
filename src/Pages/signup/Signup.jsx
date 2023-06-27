@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import CenteredModal from "../../components/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../components/loading/loadingSlice";
+import { baseUrl } from "../../configuration";
 
 const SignUp = () => {
   const data = {
@@ -16,7 +17,7 @@ const SignUp = () => {
     usertype: "user",
   };
   const signupdetail = useSelector((state) => state.Signup);
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState();
   const [Modalheading, setModalheading] = useState("");
 
@@ -28,7 +29,7 @@ const SignUp = () => {
     dispatch(setLoading(true));
     try {
       const data = await axios.post(
-        "http://localhost:8000/user/register",
+        `${baseUrl}/user/register`,
         signUpData
       );
       if (data.data === "exists") {
@@ -65,7 +66,7 @@ const SignUp = () => {
         if (signupdetail.doctorDetail !== {}) {
           try {
             await axios.post(
-              "http://localhost:8000/doctor/registerdoctor",
+              `${baseUrl}/doctor/registerdoctor`,
               doctorval
             );
             toast.success("You are sucessfully registered as doctor");
@@ -81,7 +82,7 @@ const SignUp = () => {
         if (signupdetail.patientDetail !== {}) {
           try {
             await axios.post(
-              "http://localhost:8000/patient/registerpatient",
+              `${baseUrl}/patient/registerpatient`,
               patientval
             );
             toast.success("You are sucessfully registered as Patient");

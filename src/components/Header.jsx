@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import "./Home/Home.css";
 import { FiSearch } from "react-icons/fi";
 import { BiCart, BiUser } from "react-icons/bi";
 import { FaBars } from "react-icons/fa";
@@ -9,6 +8,8 @@ import { AiOutlineLogout } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import { toast } from "react-toastify";
 import userimg from "../assests/user.png"
+import { motion } from 'framer-motion';
+import "../features/Home/Home.css"
 
 
 const Header = ({ user }) => {
@@ -76,6 +77,9 @@ const Header = ({ user }) => {
               <NavLink className="nav-option" to="/shop">
                 Shop
               </NavLink>
+              <NavLink className="nav-option" to="/admin">
+                Admin
+              </NavLink>
             </div>
           </div>
           <div className="left col-6 row gap-2 justify-content-end">
@@ -135,7 +139,11 @@ const Header = ({ user }) => {
           </div>
           {toggle && (
             <>
-              <div className="mobile-menu d-md-none text-muted position-absolute col-12 bg-white d-flex flex-column col-12 gap-4 align-content-center p-4 shadow">
+              <motion.div 
+               initial={{top:-600}}
+               animate={{top:60}}
+               transition={{duration:1}}
+              className="mobile-menu d-md-none text-muted position-absolute col-12 bg-white d-flex flex-column col-12 gap-4 align-content-center p-4 shadow">
                 <NavLink onClick={() => setToggle(false)} to="/">
                   Home
                 </NavLink>
@@ -148,7 +156,10 @@ const Header = ({ user }) => {
                 <NavLink onClick={() => setToggle(false)} to="/shop">
                   Shop
                 </NavLink>
-              </div>
+                <NavLink onClick={() => setToggle(false)} to="/admin">
+                  Admin
+                </NavLink>
+              </motion.div>
             </>
           )}
         </nav>

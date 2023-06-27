@@ -1,20 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseUrl } from "../../configuration";
 
 export const fetchUser = createAsyncThunk("fetchuser", async () => {
     const data = {
     data:"Authorization token"
     }
   try {
-    const response = await axios.post("http://localhost:8000/user/verify", data ,{
+    const response = await axios.post(`${baseUrl}/user/verify`, data ,{
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
     });
     return response.data;
   } catch (error) {
-    throw error;
+    console.error(error.message);
   }
 });
 
@@ -46,3 +47,4 @@ const userSlice = createSlice({
 });
 
 export const userSlicevalue = userSlice.reducer;
+export const userinfo = state=>state.User.data

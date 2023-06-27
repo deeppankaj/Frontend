@@ -7,6 +7,9 @@
       font-family: 'Inter', sans-serif;
       box-sizing: border-box;
   }
+  #root{
+    overflow-x: hidden;
+  }
  
   a {
       text-decoration: none;
@@ -203,7 +206,7 @@
     /* Apply fixed position on large screens */
     .position-lg-fixed {
       position: fixed;
-      top: 20px;
+      top: 40px;
       left: 20px;
     }
     .footer-postion{

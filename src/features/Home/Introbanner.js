@@ -2,7 +2,7 @@ import React from "react";
 import { CgEditFlipH } from "react-icons/cg";
 import { FiAirplay } from "react-icons/fi";
 import { BiBriefcaseAlt2 } from "react-icons/bi";
-
+import { motion } from "framer-motion";
 const Introbanner = () => {
   return (
     <section className="cta-section my-5">
@@ -10,7 +10,12 @@ const Introbanner = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-5 offset-lg-7 col-md-7 offset-md-5">
-            <div className=" d-flex cta-card card flex-row p-4 rounded-md shadow position-relative overflow-hidden">
+            <motion.div
+              initial={{ x: 200 }}
+              whileInView={{ x: 0 }}
+              transition={{ delay: 0.2, duration: .5 }}
+              className=" d-flex cta-card card flex-row p-4 rounded-md shadow position-relative overflow-hidden"
+            >
               <BiBriefcaseAlt2 className="cta-icon" />
               <div className="ms-3">
                 <h5 className="titles">Our Mission</h5>
@@ -20,13 +25,17 @@ const Introbanner = () => {
                 </p>
               </div>
               <div className="big-icon">
-              <BiBriefcaseAlt2  />
+                <BiBriefcaseAlt2 />
 
                 <i className="uil uil-briefcase"></i>
               </div>
-            </div>
+            </motion.div>
 
-            <div className=" d-flex cta-card card flex-row p-4 rounded-md shadow position-relative overflow-hidden mt-4">
+            <motion.div 
+              initial={{ x: 200 }}
+              whileInView={{ x: 0 }}
+              transition={{ delay: 0.3, duration: .5 }}
+            className=" d-flex cta-card card flex-row p-4 rounded-md shadow position-relative overflow-hidden mt-4">
               <FiAirplay className="cta-icon" />
               <div className="ms-3">
                 <h5 className="titles font-weight-bold">Our Vision</h5>
@@ -36,11 +45,15 @@ const Introbanner = () => {
                 </p>
               </div>
               <div className="big-icon">
-              <FiAirplay />
+                <FiAirplay />
               </div>
-            </div>
+            </motion.div>
 
-            <div className=" d-flex cta-card card flex-row p-4 rounded-md shadow position-relative overflow-hidden mt-4">
+            <motion.div
+              initial={{ x: 200 }}
+              whileInView={{ x: 0 }}
+              transition={{ delay: 0.3, duration: .5 }}
+            className=" d-flex cta-card card flex-row p-4 rounded-md shadow position-relative overflow-hidden mt-4">
               <CgEditFlipH className="cta-icon" />
               <div className="ms-3">
                 <h5 className="titles">Who We Are?</h5>
@@ -50,10 +63,9 @@ const Introbanner = () => {
                 </p>
               </div>
               <div className="big-icon">
-              <CgEditFlipH  />
-
+                <CgEditFlipH />
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

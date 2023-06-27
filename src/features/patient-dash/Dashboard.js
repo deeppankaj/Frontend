@@ -163,7 +163,7 @@ const Dashboard = () => {
   const [Modalheading, setModalheading] = useState("");
 
   return (
-    <div className="col-xl-9 col-lg-8 col-md-7 mt-4 pt-2 mt-sm-0 pt-sm-0">
+    <div className="col-xl-9 col-lg-8 col-md-7 mt-4 pt-2 mt-sm-0 pt-sm-4 pt-md-0">
       <CenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}

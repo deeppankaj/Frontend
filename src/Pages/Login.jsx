@@ -3,6 +3,7 @@ import { BsFacebook, BsGoogle } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { baseUrl } from "../configuration";
 
 const LogIn = () => {
   const data = {
@@ -15,7 +16,7 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await axios.post(
-      "http://localhost:8000/user/login",
+      `${baseUrl}/user/login`,
       loginData
       );
       console.log(data.data)

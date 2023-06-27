@@ -4,7 +4,7 @@ import { userSlicevalue } from './Slices/UserSlice';
 import { shopSlicevalue } from './Slices/ShopSlice';
 import { appointmentSlicevalue } from './Slices/AppointmentSlice';
 import { loading } from '../components/loading/loadingSlice';
-import { SignUpSlicevalue } from '../features/signup/SignUpSlice';
+import { SignUpSlicevalue } from '../Pages/signup/SignUpSlice';
 
 export const store = configureStore({
   reducer: {

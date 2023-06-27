@@ -1,6 +1,6 @@
 import React,{ useState} from 'react'
 import { useDispatch } from 'react-redux';
-import { addPatient } from '../../features/signup/SignUpSlice';
+import { addPatient } from '../../Pages/signup/SignUpSlice';
 
 const PatientForm = ({hide}) => {
     const data = {

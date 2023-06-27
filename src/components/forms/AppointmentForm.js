@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { baseUrl } from "../../configuration";
 // import { setLoading } from "../loading/loadingSlice";
 
 const AppointmentForm = ({ hide }) => {
@@ -48,7 +49,7 @@ const AppointmentForm = ({ hide }) => {
 
   //* fetching doctor data from database to show the doctors in form
   const getDoc = async () => {
-    const data = await axios.get("http://localhost:8000/doctor");
+    const data = await axios.get(`${baseUrl}/doctor`);
     setDoctors(data.data);
   };
   //* Intallizing all function on page rendering
@@ -71,7 +72,7 @@ const AppointmentForm = ({ hide }) => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:8000/addappointment",
+        `${baseUrl}/addappointment`,
         data
       );
       toast.success(response.data);
@@ -92,7 +93,7 @@ const AppointmentForm = ({ hide }) => {
       };
       try {
         const response = await axios.post(
-          `http://localhost:8000/checkappointment`,
+          `${baseUrl}/checkappointment`,
           data
         );
         if (response.data.available === true) {

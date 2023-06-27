@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseUrl } from "../../configuration";
 
 export const fetchProduct = createAsyncThunk("fetchProduct", async () => {
   try {
-    const response = await axios.get("http://localhost:8000/shop");
+    const response = await axios.get(`${baseUrl}/shop`);
     return response.data;
   } catch (error) {
-    throw error;
+    console.error(error.message);
   }
 });
 

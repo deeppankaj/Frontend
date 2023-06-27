@@ -10,12 +10,12 @@ import axios from "axios";
 import ReactStars from "react-stars";
 import { addTocart } from "../Redux-toolkit/Slices/CartSlice";
 import { toast } from "react-toastify";
+import { baseUrl } from "../configuration";
 
 
 
 const ProductDetail = () => {
   const productName = useLocation().pathname.split("/")[2];
-  const products = useSelector(state=>state.Shop.data);
   const user = useSelector(state=>state.User.data);
   const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ const ProductDetail = () => {
   // ];
   const [product, setProduct] = useState({});
   const getProduct = async()=>{
-    const data = await axios(`http://localhost:8000/shop/get?name=${productName}`)
+    const data = await axios(`${baseUrl}/shop/get?name=${productName}`)
     setProduct(data.data)
   }
   getProduct()
